@@ -1,55 +1,410 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>PlayBlox Game</title>
-  <style>
-    body {
-      margin: 0;
-      background: #0f1117;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    header {
-      padding: 20px;
-      background: #181b25;
-      font-size: 28px;
-      font-weight: bold;
-    }
+<title>Blox City - PlayBlox</title>
 
-    .game {
-      margin: 50px auto;
-      width: 80%;
-      max-width: 800px;
-      height: 400px;
-      background: linear-gradient(135deg, #00a2ff, #764ba2);
-      border-radius: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
 
-    button {
-      padding: 15px 30px;
-      border: none;
-      border-radius: 10px;
-      font-size: 18px;
-      cursor: pointer;
-    }
-  </style>
+body {
+  margin: 0;
+  background: #111827;
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+header {
+  height: 65px;
+  background: #181b25;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.back {
+  background: #00a2ff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#game {
+  width: 100vw;
+  height: calc(100vh - 65px);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(#38bdf8 0%, #7dd3fc 65%, #86efac 65%);
+}
+
+.ground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 35%;
+  background: #22c55e;
+  border-top: 8px solid #15803d;
+}
+
+.cloud {
+  position: absolute;
+  font-size: 55px;
+}
+
+.building {
+  position: absolute;
+  bottom: 35%;
+  width: 110px;
+  background: #64748b;
+  border: 5px solid #475569;
+}
+
+.building::before {
+  content: "🟨 🟨 🟨 🟨";
+  font-size: 18px;
+  padding: 8px;
+  display: block;
+  line-height: 2;
+}
+
+#player {
+  position: absolute;
+  width: 45px;
+  height: 55px;
+  background: #2563eb;
+  border-radius: 8px;
+  left: 80px;
+  bottom: 35%;
+  z-index: 10;
+}
+
+#player::before {
+  content: "😎";
+  position: absolute;
+  top: -35px;
+  left: -2px;
+  font-size: 48px;
+}
+
+.coin {
+  position: absolute;
+  font-size: 32px;
+  z-index: 5;
+}
+
+#info {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(0,0,0,0.6);
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  z-index: 30;
+}
+
+.controls {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 50;
+}
+
+.controls button,
+.jump button {
+  height: 60px;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.controls button {
+  width: 65px;
+  background: #181b25;
+  border: 2px solid #374151;
+}
+
+.jump {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 50;
+}
+
+.jump button {
+  width: 100px;
+  background: #00a2ff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#restart {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 30;
+}
+
+/* Start screen */
+#startScreen,
+#winScreen {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.92);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.screen-box {
+  background: #181b25;
+  padding: 35px;
+  border-radius: 20px;
+  max-width: 400px;
+  width: 85%;
+}
+
+.screen-box h1 {
+  margin-top: 0;
+}
+
+.screen-box p {
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.start-btn {
+  background: #00a2ff;
+  color: white;
+  border: none;
+  padding: 16px 35px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+}
+</style>
 </head>
 
 <body>
 
-<header>🎮 PlayBlox Game</header>
+<header>
+  <div class="logo">🎮 PlayBlox - Blox City</div>
+  <button class="back" onclick="goHome()">← Home</button>
+</header>
 
-<div class="game">
-  <h1>Welcome to Blox City! 🏙️</h1>
-  <p>Your PlayBlox adventure starts here.</p>
-  <button onclick="alert('Game starting! 🚀')">Play Game</button>
+<div id="game">
+
+  <!-- Start Screen -->
+  <div id="startScreen">
+    <div class="screen-box">
+      <h1>🏙️ Blox City</h1>
+      <p>
+        Collect all the coins!<br>
+        Use ⬅️ ➡️ to move and ⬆️ JUMP to jump.
+      </p>
+      <button class="start-btn" onclick="startGame()">▶ Start Game</button>
+    </div>
+  </div>
+
+  <!-- Win Screen -->
+  <div id="winScreen" style="display:none;">
+    <div class="screen-box">
+      <h1>🎉 You Win!</h1>
+      <p>You collected all the coins!</p>
+      <button class="start-btn" onclick="restartGame()">🔄 Play Again</button>
+    </div>
+  </div>
+
+  <div id="info">
+    🪙 Coins: <span id="coins">0</span> / 5
+  </div>
+
+  <button id="restart" onclick="restartGame()">🔄 Restart</button>
+
+  <div class="cloud" style="top:40px; left:15%;">☁️</div>
+  <div class="cloud" style="top:100px; left:70%;">☁️</div>
+
+  <div class="building" style="left:15%; height:180px;"></div>
+  <div class="building" style="left:70%; height:230px;"></div>
+
+  <div id="player"></div>
+
+  <!-- Coins -->
+  <div class="coin" style="left:200px; bottom:38%;">🪙</div>
+  <div class="coin" style="left:400px; bottom:38%;">🪙</div>
+  <div class="coin" style="left:600px; bottom:38%;">🪙</div>
+  <div class="coin" style="left:800px; bottom:38%;">🪙</div>
+  <div class="coin" style="left:1000px; bottom:38%;">🪙</div>
+
+  <div class="ground"></div>
+
 </div>
+
+<div class="controls">
+  <button onclick="moveLeft()">⬅️</button>
+  <button onclick="moveRight()">➡️</button>
+</div>
+
+<div class="jump">
+  <button onclick="jump()">⬆️ JUMP</button>
+</div>
+
+<script>
+const player = document.getElementById("player");
+const coinsDisplay = document.getElementById("coins");
+const startScreen = document.getElementById("startScreen");
+const winScreen = document.getElementById("winScreen");
+
+let x = 80;
+let jumping = false;
+let gameStarted = false;
+let score = 0;
+
+function updatePlayer() {
+  player.style.left = x + "px";
+}
+
+function startGame() {
+  gameStarted = true;
+  startScreen.style.display = "none";
+}
+
+function moveLeft() {
+  if (!gameStarted) return;
+
+  x -= 30;
+  if (x < 0) x = 0;
+
+  updatePlayer();
+  collectCoins();
+}
+
+function moveRight() {
+  if (!gameStarted) return;
+
+  x += 30;
+
+  const maxX = window.innerWidth - 50;
+  if (x > maxX) x = maxX;
+
+  updatePlayer();
+  collectCoins();
+}
+
+function jump() {
+  if (!gameStarted || jumping) return;
+
+  jumping = true;
+
+  let height = 0;
+
+  const up = setInterval(() => {
+    height += 10;
+    player.style.transform = `translateY(-${height}px)`;
+
+    if (height >= 180) {
+      clearInterval(up);
+
+      const down = setInterval(() => {
+        height -= 10;
+        player.style.transform = `translateY(-${height}px)`;
+
+        if (height <= 0) {
+          clearInterval(down);
+          player.style.transform = "translateY(0)";
+          jumping = false;
+          collectCoins();
+        }
+      }, 20);
+    }
+  }, 20);
+}
+
+function collectCoins() {
+  const playerRect = player.getBoundingClientRect();
+  const allCoins = document.querySelectorAll(".coin");
+
+  allCoins.forEach(coin => {
+    const coinRect = coin.getBoundingClientRect();
+
+    if (
+      playerRect.right > coinRect.left &&
+      playerRect.left < coinRect.right &&
+      playerRect.bottom > coinRect.top &&
+      playerRect.top < coinRect.bottom
+    ) {
+      coin.remove();
+      score++;
+      coinsDisplay.textContent = score;
+
+      if (score === 5) {
+        gameStarted = false;
+        winScreen.style.display = "flex";
+      }
+    }
+  });
+}
+
+function restartGame() {
+  location.reload();
+}
+
+function goHome() {
+  window.location.href = "index.html";
+}
+
+/* Keyboard controls */
+document.addEventListener("keydown", function(event) {
+  if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a") {
+    moveLeft();
+  }
+
+  if (event.key === "ArrowRight" || event.key.toLowerCase() === "d") {
+    moveRight();
+  }
+
+  if (
+    event.key === "ArrowUp" ||
+    event.key === " " ||
+    event.key.toLowerCase() === "w"
+  ) {
+    event.preventDefault();
+    jump();
+  }
+});
+</script>
 
 </body>
 </html>
+
