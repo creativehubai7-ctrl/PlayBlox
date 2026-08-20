@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PlayBlox</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #0f1117;
+  color: white;
+}
+
+nav {
+  height: 70px;
+  background: #181b25;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  border-bottom: 1px solid #292d3a;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.logo span {
+  color: #00a2ff;
+}
+
+.nav-buttons button {
+  padding: 10px 18px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login {
+  background: transparent;
+  color: white;
+  border: 1px solid #444 !important;
+}
+
+.signup {
+  background: #00a2ff;
+  color: white;
+}
+
+.hero {
+  text-align: center;
+  padding: 100px 20px 70px;
+  background: linear-gradient(135deg, #101522, #18233b);
+}
+
+.hero h1 {
+  font-size: 55px;
+  margin-bottom: 20px;
+}
+
+.hero h1 span {
+  color: #00a2ff;
+}
+
+.hero p {
+  color: #aeb6c7;
+  font-size: 19px;
+  max-width: 650px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+.play-btn {
+  margin-top: 30px;
+  padding: 16px 32px;
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background: #00a2ff;
+  color: white;
+  cursor: pointer;
+}
+
+.games {
+  padding: 60px 8%;
+}
+
+.games h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.game-card {
+  background: #181b25;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.game-card:hover {
+  transform: translateY(-8px);
+}
+
+.game-image {
+  height: 150px;
+  background: linear-gradient(135deg, #00a2ff, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+}
+
+.game-info {
+  padding: 18px;
+}
+
+.game-info h3 {
+  margin-bottom: 8px;
+}
+
+.game-info p {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+  border-top: 1px solid #292d3a;
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 38px;
+  }
+
+  nav {
+    padding: 0 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">Play<span>Blox</span></div>
+
+  <div class="nav-buttons">
+    <button class="login">Log In</button>
+    <button class="signup">Sign Up</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Create. Play. <span>Explore.</span></h1>
+
+  <p>
+    Welcome to PlayBlox — a creative gaming platform where you can
+    play amazing games, create your own worlds, customize your avatar,
+    and explore endless adventures.
+  </p>
+
+  <button class="play-btn" onclick="startPlaying()">
+    🎮 Start Playing
+  </button>
+</section>
+
+<section class="games">
+
+  <h2>🔥 Popular Games</h2>
+
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-image">🏙️</div>
+      <div class="game-info">
+        <h3>Blox City</h3>
+        <p>Explore the biggest city in PlayBlox!</p>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-image">⚔️</div>
+      <div class="game-info">
+        <h3>Battle Arena</h3>
+        <p>Fight and become the ultimate champion.</p>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-image">🏝️</div>
+      <div class="game-info">
+        <h3>Island Survival</h3>
+        <p>Can you survive on the mysterious island?</p>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-image">🚗</div>
+      <div class="game-info">
+        <h3>Speed World</h3>
+        <p>Race against players from around the world!</p>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  © 2026 PlayBlox — Create Your Adventure 🎮
+</footer>
+
+<script>
+function startPlaying() {
+  alert("Welcome to PlayBlox! 🎮 More games coming soon!");
+}
+</script>
+
+</body>
+</html>
