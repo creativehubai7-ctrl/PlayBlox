@@ -1,3 +1,6 @@
+# Updated index.html
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +35,6 @@ nav {
 .logo {
   font-size: 26px;
   font-weight: bold;
-  color: #ffffff;
 }
 
 .logo span {
@@ -149,16 +151,6 @@ footer {
   color: #777;
   border-top: 1px solid #292d3a;
 }
-
-@media (max-width: 600px) {
-  .hero h1 {
-    font-size: 38px;
-  }
-
-  nav {
-    padding: 0 20px;
-  }
-}
 </style>
 </head>
 
@@ -182,13 +174,12 @@ footer {
     and explore endless adventures.
   </p>
 
-  <button class="play-btn" onclick="startPlaying()">
+  <button class="play-btn" onclick="window.location.href='game.html'">
     🎮 Start Playing
   </button>
 </section>
 
 <section class="games">
-
   <h2>🔥 Popular Games</h2>
 
   <div class="game-grid">
@@ -226,18 +217,13 @@ footer {
     </div>
 
   </div>
-
 </section>
 
 <footer>
   © 2026 PlayBlox — Create Your Adventure 🎮
 </footer>
 
-<script>
-function startPlaying() {
-  alert("Welcome to PlayBlox! 🎮 More games coming soon!");
-}
-</script>
-
 </body>
 </html>
+```
+
